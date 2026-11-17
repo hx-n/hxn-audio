@@ -76,7 +76,7 @@ audio-session category, audio focus and background-audio policy. Call
 failures and reopen with `selectDevice`; device changes do not reset the
 mixer's sample rate or discard queued music. Android app hosts initialize
 `ndk-context` with their JavaVM and application Context before audio calls;
-the installed CLI check supplies an Activity host and manages this setup.
+the application host supplies this setup before opening output.
 
 `metrics().latencySeconds` is a backend estimate: native callback-to-playback
 timestamps plus renderer buffering, or WebAudio base/output latency.
@@ -87,43 +87,19 @@ upload is limited to 32 MiB.
 
 ## CLI and development
 
-```
-hxn audio doctor
-hxn audio check hl --vm ash
-hxn audio check cpp
-hxn audio check cpp --audible
-hxn audio check cpp --av
-hxn audio check hl --wasm --threads --browser --vm ash
-hxn audio check cpp --wasm --browser
-hxn audio check cpp --wasm --threads --browser
-hxn audio check hl --target aarch64-apple-ios-sim --device <simulator-UDID> --vm ash
-hxn audio check cpp --target x86_64-apple-ios --device <simulator-UDID>
-hxn audio check hl --target aarch64-linux-android --device <adb-serial> --vm ash
-hxn audio check cpp --target aarch64-linux-android --device <adb-serial>
-```
-
-These commands ship in the haxelib and exercise real output, overlapping
-sounds and a streamed tone. Browser checks use headless Chrome; Node 22+
-and the relevant Ash/Emscripten tooling are needed. Mobile checks need the
-platform SDK, an installed simulator/emulator/device and its matching
-package archives; Android also needs a JDK and SDK build-tools. Test playback is quiet.
+`hxn audio doctor` checks the installed AudioWorklet DSP and reports browser
+requirements. `hxn build` builds bindings and `hxn package` creates a haxelib.
+Source lifecycle hooks build the DSP with nightly Rust and rust-src when
+wasm or packaging needs it; `hxn audio dsp` builds it explicitly from source.
 
 From source, `hxn check hl --vm ash` and `hxn check cpp cppia` exercise
-mixing offline, without an audio device. `hxn build` builds bindings and
-`hxn package` creates a haxelib. Source lifecycle hooks build the DSP with
-nightly Rust and rust-src when wasm or packaging needs it. An installed
-source checkout can also run `hxn audio dsp`. The mixer core's tests
-include concurrent streaming and an allocation/free audit of rendering.
+mixing offline. Playback tests and their mobile/browser hosts live under
+`tests/`; see [testing](tests/README.md) for contributor instructions.
+
+With `hxn-av` installed, `hxn.audio.DecoderStream` transfers decoded audio
+into a bounded stream. Call `pump()` from the event loop, keep the
+decoder/output alive, and close the bridge when done. It retains and retries
+partial writes and drains EOF.
 
 See [design](docs/design.md), [conventions](docs/conventions.md) and the
 [skill](skills/hxn-audio/SKILL.md) when changing this library.
-
-Use `--audible` for an eight-second listening check at a moderate signal
-level. It leaves system volume unchanged. Automated metrics verify sample
-rendering and device progress; confirm audibility separately on the device.
-
-With `hxn-av` installed, add `--av` to the check to decode its AAC fixture
-and stream every decoded frame through a bounded ring while other sounds
-play. `hxn.audio.DecoderStream` provides this transfer for applications:
-call `pump()` from the event loop, keep the decoder/output alive, and close
-the bridge when done. It retains and retries partial writes and drains EOF.

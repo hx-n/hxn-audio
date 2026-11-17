@@ -17,6 +17,10 @@
   mobile; compilation alone is not a device pass.
 - Test packaged assets and namespaced commands without Rust/source files.
   Public workflows use hxn CLI tools, never repository shell scripts.
+- Keep playback runners, mobile test apps, fixtures and browser drivers under
+  `tests/`. Run them against installed packages; exclude them from haxelib
+  metadata and public CLI commands. Mobile test hosts are library validation
+  fixtures, not general hxn application packaging or deployment tools.
 - Runtime and concurrent/browser tests run under timeouts. Repeat them;
   record unavailable targets and measured timing evidence in git-bug.
 - Update API docs and skills with workflow changes. Run cargo fmt, clippy,
@@ -24,6 +28,11 @@
 
 - The combined Ash/iOS check uses DWARF unwind metadata when isolated Rust
   archives and Objective-C exceed Mach-O compact-unwind personality slots.
-  Keep that host-link adjustment in the installed CLI workflow.
-- Confirm actual audibility with the explicit `--audible` listening check;
+  Keep that host-link adjustment in the test harness.
+- Confirm actual audibility with the test harness's `--audible` option;
   render/device metrics alone do not establish that a person heard output.
+
+- Physical iOS checks use a dedicated app identifier and an explicitly
+  selected development team. Keep signing details and device identifiers
+  out of committed templates. Remove the temporary app after a run and
+  verify its console completion marker; installation alone is not a pass.

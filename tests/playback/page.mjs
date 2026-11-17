@@ -7,7 +7,7 @@
 // the order they were written, and exits 0 when the page says done, 1 when it
 // trapped or did not finish.
 //
-//     node ash_page.mjs <ash> <directory> <chrome> [chrome flags...]
+//     node tests/playback/page.mjs <ash|emcc> <directory> <chrome> [chrome flags...]
 //
 // Node 22 or later, for its global fetch and WebSocket.
 import { spawn } from "node:child_process";

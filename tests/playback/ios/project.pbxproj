@@ -1,0 +1,39 @@
+// !$*UTF8*$!
+{
+ archiveVersion = 1; classes = {}; objectVersion = 56;
+ objects = {
+  A00000000000000000000001 = {isa = PBXBuildFile; fileRef = A00000000000000000000002;};
+  A00000000000000000000002 = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = host.mm; sourceTree = "<group>";};
+  A00000000000000000000003 = {isa = PBXFileReference; explicitFileType = wrapper.application; path = AudioCheck.app; sourceTree = BUILT_PRODUCTS_DIR;};
+  A00000000000000000000004 = {isa = PBXGroup; children = (A00000000000000000000002,A00000000000000000000005); sourceTree = "<group>";};
+  A00000000000000000000005 = {isa = PBXGroup; children = (A00000000000000000000003); name = Products; sourceTree = "<group>";};
+  A00000000000000000000006 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (A00000000000000000000001); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000007 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0;};
+  A00000000000000000000008 = {isa = PBXNativeTarget; buildConfigurationList = A00000000000000000000009; buildPhases = (A00000000000000000000006,A00000000000000000000007,__EMBED_PHASE__); buildRules = (); dependencies = (); name = AudioCheck; productName = AudioCheck; productReference = A00000000000000000000003; productType = "com.apple.product-type.application";};
+  A00000000000000000000009 = {isa = XCConfigurationList; buildConfigurations = (A0000000000000000000000A); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug;};
+  A0000000000000000000000A = {isa = XCBuildConfiguration; name = Debug; buildSettings = {
+   ARCHS = arm64;
+   CLANG_ENABLE_OBJC_ARC = YES;
+   CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+   CODE_SIGN_STYLE = Automatic;
+   CODE_SIGN_IDENTITY = "Apple Development";
+   DEVELOPMENT_TEAM = __TEAM__;
+   GCC_PREPROCESSOR_DEFINITIONS = ("$(inherited)", "HXN_CHECK_CPP=__CPP__");
+   GENERATE_INFOPLIST_FILE = NO;
+   INFOPLIST_FILE = Info.plist;
+   IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+   LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks");
+   ONLY_ACTIVE_ARCH = YES;
+   OTHER_LDFLAGS = ("$(inherited)", "-framework", UIKit, "-framework", AVFAudio, "-framework", AudioToolbox, "-framework", CoreAudio, "-framework", Foundation, "-liconv", __PROGRAM_LINK__);
+   PRODUCT_BUNDLE_IDENTIFIER = dev.hxn.audio.check;
+   PRODUCT_NAME = AudioCheck;
+   SDKROOT = iphoneos;
+   TARGETED_DEVICE_FAMILY = "1,2";
+  };};
+  A0000000000000000000000B = {isa = PBXProject; attributes = {LastUpgradeCheck = 1600;}; buildConfigurationList = A0000000000000000000000C; compatibilityVersion = "Xcode 14.0"; developmentRegion = en; knownRegions = (en,Base); mainGroup = A00000000000000000000004; productRefGroup = A00000000000000000000005; projectDirPath = ""; projectRoot = ""; targets = (A00000000000000000000008);};
+  A0000000000000000000000C = {isa = XCConfigurationList; buildConfigurations = (A0000000000000000000000D); defaultConfigurationIsVisible = 0; defaultConfigurationName = Debug;};
+  A0000000000000000000000D = {isa = XCBuildConfiguration; name = Debug; buildSettings = {};};
+  __EMBED_OBJECTS__
+ };
+ rootObject = A0000000000000000000000B;
+}

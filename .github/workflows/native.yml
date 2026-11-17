@@ -52,4 +52,4 @@ jobs:
             python3 -c 'import subprocess; subprocess.run(["cargo","test","-p","hxn-audio-core","--test","realtime"],timeout=120,check=True)'
           done
       - run: haxelib install formatter 1.18.0 --quiet
-      - run: haxelib run formatter --check -s sources -s examples
+      - run: haxelib run formatter --check -s sources -s examples -s tests

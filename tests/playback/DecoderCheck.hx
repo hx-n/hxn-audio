@@ -1,4 +1,4 @@
-package hxn.audio.cli;
+package;
 
 #if hxn_audio_av
 import haxe.Int64;

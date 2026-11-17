@@ -39,7 +39,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/ash-browser"
           (cd "$RUNNER_TEMP/ash-browser" && curl -fsSL "https://github.com/rayzor-blade/ash/releases/download/v0.1.21/$archive" | tar -xz)
           echo "ASH=$RUNNER_TEMP/ash-browser/ash" >> "$GITHUB_ENV"
-      - name: Package and check the installed CLI extension
+      - name: Package and test installed playback
         env:
           MODE: ${{ matrix.mode }}
         run: |
@@ -61,5 +61,5 @@ jobs:
           haxelib dev hxn-audio "$PWD/package"
           hxn plugins
           hxn audio doctor
-          python3 -c 'import subprocess,sys; subprocess.run(["hxn", "audio", "check", *sys.argv[1:]], timeout=1200, check=True)' "${check[@]}"
-          python3 -c 'import subprocess,sys; subprocess.run(["hxn", "audio", "check", *sys.argv[1:]], timeout=1200, check=True)' "${check[@]}"
+          python3 -c 'import subprocess,sys; subprocess.run(["haxe", "-cp", "tests/playback", "--run", "Tool", *sys.argv[1:]], timeout=1200, check=True)' "${check[@]}"
+          python3 -c 'import subprocess,sys; subprocess.run(["haxe", "-cp", "tests/playback", "--run", "Tool", *sys.argv[1:]], timeout=1200, check=True)' "${check[@]}"

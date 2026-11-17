@@ -1,4 +1,4 @@
-package hxn.audio.cli;
+package;
 
 import haxe.io.Bytes;
 import hxn.audio.*;

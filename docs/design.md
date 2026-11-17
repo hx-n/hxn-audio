@@ -51,9 +51,8 @@ lifecycle hooks. Additional binary assets use cli.files and build-hook
 page_files; the package's init macro copies browser assets for direct Haxe
 builds too. The Worklet module is a prebuilt asset for haxelib consumers.
 
-Mobile checks build a small installed host around the packaged libraries.
-Android initializes its application context before device access. Apple
-hxcpp archives keep system libraries as auto-link references. The combined
-Ash/iOS host disables compact-unwind encoding and retains DWARF unwind
-metadata when isolated Rust personalities exceed Mach-O's compact table.
-The listening option extends the signal; it never changes system volume.
+The playback harness and all of its hosts, fixtures and browser driver live
+under `tests/playback/`. It builds against an installed haxelib so package
+coverage does not depend on shipping the harness. See [testing](../tests/README.md).
+The published CLI contains the DSP build hooks and `audio doctor`/`audio dsp`.
+Application hosts own mobile startup, SDK linking and audio-session policy.

@@ -21,8 +21,8 @@ tests. Options are records, not constructed classes.
   outside rendering, and close media blocks/options. Inspect hxn-av's
   actual platform support before assuming its decoders run on the web.
   `DecoderStream` owns a stream and borrows the decoder/output; call `pump`
-  from the event loop to retry partial writes and drain EOF. `--av` on
-  `hxn audio check` validates this with the installed hxn-av decoder.
+  from the event loop to retry partial writes and drain EOF. The repository
+  playback test uses `--av` to validate the installed hxn-av decoder.
 - Bus zero is master; `output.bus(index)` accesses the fixed bank. Routing
   is acyclic and output-local. Voices can move with `setBus(bus)`; buses
   offer gain/pan, low-pass and feedback delay. Close every handle.
@@ -36,14 +36,12 @@ tests. Options are records, not constructed classes.
 - Latency metrics are backend timestamp estimates, not acoustic loopback.
   A zero latency is unknown, not instantaneous output.
 
-The installed package provides `hxn audio doctor` and `hxn audio check
-hl|cpp`. Add `--audible` for an eight-second listening check; render metrics
-alone do not prove audible output. Browser checks add `--wasm --browser`, plus `--threads` for Ash or
-threaded hxcpp. Use Ash's wasm build/serve tooling for HashLink programs.
-Mobile checks add `--target` plus `--device`; `--av` also runs the platform
-AAC decoder into the stream. The host owns SDK linking, app startup and
-cleanup. Test a physical device's audibility separately from emulator and
-simulator progress metrics.
+The installed CLI provides `hxn audio doctor`, source DSP builds and build/
+package hooks. Application hosts own mobile startup and audio-session policy.
+Playback runners and their iOS/Android/browser hosts belong under `tests/`,
+excluded from haxelib assets and public CLI commands. For contributor runtime,
+AAC and physical-device checks, read [testing](../../tests/README.md); those
+hosts validate this library and do not define standard hxn iOS tooling.
 
 When editing, read docs/design.md and docs/conventions.md. Keep rendering
 allocation/free/lock/callback-free; defer retirement to the controller.
