@@ -1,0 +1,55 @@
+name: Native
+on:
+  push:
+    branches: [main]
+  pull_request:
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+defaults:
+  run:
+    shell: bash
+jobs:
+  check:
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        runtime: [hl, ash, ash-jit, ash-interp, cpp, cppia]
+        exclude:
+          - { os: macos-latest, runtime: hl }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with:
+          runtime: ${{ startsWith(matrix.runtime, 'ash') && 'ash' || matrix.runtime }}
+      - name: Offline runtime checks
+        env:
+          MODE: ${{ matrix.runtime }}
+        run: |
+          case "$MODE" in
+            ash) args=(hl --vm ash) ;;
+            ash-jit) args=(hl --vm 'ash --mode jit') ;;
+            ash-interp) args=(hl --vm 'ash --mode interp') ;;
+            *) args=("$MODE") ;;
+          esac
+          python3 -c 'import subprocess,sys; subprocess.run(["hxn","check",*sys.argv[1:]],timeout=1200,check=True)' "${args[@]}"
+  rust:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+        with: { runtime: package }
+      - run: cargo fmt --all --check
+      - run: cargo clippy --workspace --all-targets -- -D warnings
+      - run: cargo test --workspace
+      - name: Repeat concurrent streaming
+        run: |
+          for run in 1 2 3 4; do
+            python3 -c 'import subprocess; subprocess.run(["cargo","test","-p","hxn-audio-core","--test","realtime"],timeout=120,check=True)'
+          done
+      - run: haxelib install formatter 1.18.0 --quiet
+      - run: haxelib run formatter --check -s sources -s examples

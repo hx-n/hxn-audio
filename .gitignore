@@ -1,0 +1,5 @@
+/target
+/.cargo/config.toml
+/native
+
+/assets/hxn_audio_dsp.wasm

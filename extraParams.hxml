@@ -1,0 +1,2 @@
+--macro hxn.Bind.lib("audio")
+--macro hxn.audio.Init.register()

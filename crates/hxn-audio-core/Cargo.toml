@@ -1,0 +1,9 @@
+[package]
+name = "hxn-audio-core"
+version = "0.1.0"
+edition = "2024"
+license = "Apache-2.0"
+description = "Runtime-neutral bounded audio mixing and streaming"
+
+[dependencies]
+rtrb.workspace = true

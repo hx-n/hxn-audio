@@ -1,0 +1,394 @@
+{
+  "hxn": 1,
+  "library": "audio",
+  "package": "hxn.audio",
+  "enums": [
+    {
+      "name": "AudioDeviceEvent",
+      "docs": "Device events are polled on the application thread. Reopening is explicit.",
+      "variants": [{ "name": "None", "value": 0 }, { "name": "Changed", "value": 1 }, { "name": "Unavailable", "value": 2 }, { "name": "Error", "value": 3 }, { "name": "PerformanceLimited", "value": 4 }]
+    },
+    {
+      "name": "AudioState",
+      "variants": [{ "name": "Offline", "value": 0 }, { "name": "Initializing", "value": 1 }, { "name": "Running", "value": 2 }, { "name": "Suspended", "value": 3 }, { "name": "Error", "value": 4 }]
+    }
+  ],
+  "records": [
+    {
+      "name": "AudioOptions",
+      "fields": [
+        { "name": "sample_rate", "type": "i32", "default": "AudioOptions::default_rate" },
+        { "name": "voices", "type": "i32", "default": "AudioOptions::default_voices" },
+        { "name": "buses", "type": "i32", "default": "AudioOptions::default_buses" },
+        { "name": "buffer_frames", "type": "i32", "default": "AudioOptions::default_buffer" },
+        { "name": "device", "type": "str", "default": true }
+      ]
+    },
+    {
+      "name": "PlayOptions",
+      "fields": [
+        { "name": "bus", "type": "i32", "default": true },
+        { "name": "gain", "type": "f64", "default": "PlayOptions::unity" },
+        { "name": "pan", "type": "f64", "default": true },
+        { "name": "rate", "type": "f64", "default": "PlayOptions::unity" },
+        { "name": "looping", "type": "bool", "default": true }
+      ]
+    },
+    {
+      "name": "AudioDevice",
+      "fields": [
+        { "name": "id", "type": "str" },
+        { "name": "name", "type": "str" },
+        { "name": "is_default", "type": "bool" }
+      ]
+    },
+    {
+      "name": "AudioMetrics",
+      "fields": [
+        { "name": "state", "type": "AudioState" },
+        { "name": "error", "type": "str" },
+        { "name": "rendered_frames", "type": "u64" },
+        { "name": "active_voices", "type": "u32" },
+        { "name": "starved_frames", "type": "u64" },
+        { "name": "clipped_samples", "type": "u64" },
+        { "name": "peak", "type": "f32" },
+        { "name": "device", "type": "str" },
+        { "name": "device_rate", "type": "u32" },
+        { "name": "device_channels", "type": "u32" },
+        { "name": "latency_seconds", "type": "f64" },
+        { "name": "callbacks", "type": "u64" },
+        { "name": "xruns", "type": "u64" },
+        { "name": "event", "type": "AudioDeviceEvent" }
+      ]
+    }
+  ],
+  "interfaces": [
+    {
+      "name": "AudioBuffer",
+      "shared": true,
+      "weighed": true,
+      "methods": [
+        {
+          "name": "new",
+          "docs": "Little-endian, interleaved finite f32 PCM. Mono and stereo are accepted.",
+          "kind": "constructor",
+          "params": [{ "name": "pcm", "type": "bytes" }, { "name": "sample_rate", "type": "u32" }, { "name": "channels", "type": "u32" }],
+          "returns": "AudioBuffer",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "frames",
+          "kind": "method",
+          "params": [],
+          "returns": "u64",
+          "fallible": false,
+          "blocking": false
+        },
+        {
+          "name": "sample_rate",
+          "kind": "method",
+          "params": [],
+          "returns": "u32",
+          "fallible": false,
+          "blocking": false
+        },
+        {
+          "name": "channels",
+          "kind": "method",
+          "params": [],
+          "returns": "u32",
+          "fallible": false,
+          "blocking": false
+        }
+      ]
+    },
+    {
+      "name": "AudioOutput",
+      "shared": true,
+      "weighed": true,
+      "methods": [
+        {
+          "name": "new",
+          "docs": "Opens the selected device. An empty device identifier selects the default.",
+          "kind": "constructor",
+          "params": [{ "name": "options", "type": "AudioOptions" }],
+          "returns": "AudioOutput",
+          "fallible": true,
+          "blocking": true
+        },
+        {
+          "name": "offline",
+          "kind": "static",
+          "params": [{ "name": "options", "type": "AudioOptions" }],
+          "returns": "AudioOutput",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "play",
+          "kind": "method",
+          "params": [{ "name": "buffer", "type": "AudioBuffer" }, { "name": "options", "type": "PlayOptions" }],
+          "returns": "AudioVoice",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "stream",
+          "kind": "method",
+          "params": [{ "name": "sample_rate", "type": "u32" }, { "name": "channels", "type": "u32" }, { "name": "capacity_frames", "type": "u32" }, { "name": "options", "type": "PlayOptions" }],
+          "returns": "AudioStream",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "bus",
+          "docs": "Bus zero is the master; every other bus initially routes to it.",
+          "kind": "method",
+          "params": [{ "name": "index", "type": "u32" }],
+          "returns": "AudioBus",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "render",
+          "docs": "Renders an offline output only. Byte length must be a whole stereo frame.",
+          "kind": "method",
+          "params": [{ "name": "destination", "type": "bytes_mut" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "metrics",
+          "kind": "method",
+          "params": [],
+          "returns": "AudioMetrics",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "pause",
+          "kind": "method",
+          "params": [],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "resume",
+          "kind": "method",
+          "params": [],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "select_device",
+          "docs": "Reopens on the control thread, retaining the mixer and its queued audio.",
+          "kind": "method",
+          "params": [{ "name": "id", "type": "str" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": true
+        }
+      ]
+    },
+    {
+      "name": "AudioVoice",
+      "shared": true,
+      "methods": [
+        {
+          "name": "stop",
+          "kind": "method",
+          "params": [],
+          "returns": "void",
+          "fallible": false,
+          "blocking": false
+        },
+        {
+          "name": "set_gain",
+          "kind": "method",
+          "params": [{ "name": "gain", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_pan",
+          "kind": "method",
+          "params": [{ "name": "pan", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_rate",
+          "kind": "method",
+          "params": [{ "name": "rate", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "finished",
+          "kind": "method",
+          "params": [],
+          "returns": "bool",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_bus",
+          "kind": "method",
+          "params": [{ "name": "bus", "type": "AudioBus" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "position_seconds",
+          "kind": "method",
+          "params": [],
+          "returns": "f64",
+          "fallible": false,
+          "blocking": false
+        }
+      ]
+    },
+    {
+      "name": "AudioStream",
+      "shared": true,
+      "weighed": true,
+      "methods": [
+        {
+          "name": "write",
+          "docs": "Returns accepted frames. Retry the remaining suffix without blocking.",
+          "kind": "method",
+          "params": [{ "name": "pcm", "type": "bytes" }],
+          "returns": "u32",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "available_frames",
+          "kind": "method",
+          "params": [],
+          "returns": "u32",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "finish",
+          "docs": "Marks EOF after the last successful write. Queued audio continues playing.",
+          "kind": "method",
+          "params": [],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "stop",
+          "kind": "method",
+          "params": [],
+          "returns": "void",
+          "fallible": false,
+          "blocking": false
+        },
+        {
+          "name": "finished",
+          "kind": "method",
+          "params": [],
+          "returns": "bool",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_gain",
+          "kind": "method",
+          "params": [{ "name": "gain", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_pan",
+          "kind": "method",
+          "params": [{ "name": "pan", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "position_seconds",
+          "kind": "method",
+          "params": [],
+          "returns": "f64",
+          "fallible": false,
+          "blocking": false
+        }
+      ]
+    },
+    {
+      "name": "AudioBus",
+      "shared": true,
+      "methods": [
+        {
+          "name": "set_gain",
+          "kind": "method",
+          "params": [{ "name": "gain", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_pan",
+          "kind": "method",
+          "params": [{ "name": "pan", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_lowpass",
+          "docs": "Zero bypasses this filter. Cutoff may not exceed the mixer Nyquist rate.",
+          "kind": "method",
+          "params": [{ "name": "hz", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "set_delay",
+          "kind": "method",
+          "params": [{ "name": "frames", "type": "u32" }, { "name": "feedback", "type": "f64" }, { "name": "wet", "type": "f64" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        },
+        {
+          "name": "route_to",
+          "kind": "method",
+          "params": [{ "name": "parent", "type": "AudioBus" }],
+          "returns": "void",
+          "fallible": true,
+          "blocking": false
+        }
+      ]
+    },
+    {
+      "name": "Audio",
+      "namespace": true,
+      "methods": [
+        {
+          "name": "devices",
+          "kind": "static",
+          "params": [],
+          "returns": "list<AudioDevice>",
+          "fallible": true,
+          "blocking": false
+        }
+      ]
+    }
+  ]
+}

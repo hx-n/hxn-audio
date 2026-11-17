@@ -1,0 +1,11 @@
+{
+  "name": "hxn-audio",
+  "version": "0.1.0",
+  "description": "Native audio output, voices, streaming PCM, buses and effects for Haxe",
+  "url": "https://github.com/hx-n/hxn-audio",
+  "license": "Apache",
+  "contributors": ["darmie"],
+  "releasenote": "Native mixing with voices, streaming PCM, buses and effects, over device output or an AudioWorklet.",
+  "hxn": { "cli": {"command":["haxe","-cp","{root}/sources","--run","hxn.audio.cli.Tool"],"files":["assets/hxn_audio_dsp.wasm","tooling"],"hooks":["before-build","before-package"],"namespace":"audio","version":1} },
+  "dependencies": { "hxn": "0.3.7" }
+}
