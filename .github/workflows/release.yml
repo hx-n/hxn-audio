@@ -52,6 +52,7 @@ jobs:
           git clone --depth 1 https://github.com/emscripten-core/emsdk "$RUNNER_TEMP/emsdk"
           "$RUNNER_TEMP/emsdk/emsdk" install 5.0.7
           "$RUNNER_TEMP/emsdk/emsdk" activate 5.0.7
+      - run: python3 scripts/third_party_notices.py --check
       - run: |
           if [ -f "$RUNNER_TEMP/emsdk/emsdk_env.sh" ]; then source "$RUNNER_TEMP/emsdk/emsdk_env.sh"; fi
           hxn package ${{ matrix.runtimes || 'hl cpp' }} --release ${{ matrix.target && format('--target {0}', matrix.target) || '' }} ${{ matrix.wasm && '--wasm' || '' }} ${{ matrix.threads && '--threads' || '' }} --out package

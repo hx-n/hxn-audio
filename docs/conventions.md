@@ -38,3 +38,8 @@
   selected development team. Keep signing details and device identifiers
   out of committed templates. Remove the temporary app after a run and
   verify its console completion marker; installation alone is not a pass.
+
+- Ship `third-party/` with binary packages, preserving upstream license texts,
+  notices and any required source availability. Refresh its pinned inventory
+  after changing Cargo manifests or the lock file. Skill documentation links
+  use absolute HTTPS repository URLs.

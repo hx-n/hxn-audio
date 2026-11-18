@@ -6,6 +6,6 @@
   "license": "Apache",
   "contributors": ["darmie"],
   "releasenote": "Native mixing with voices, streaming PCM, buses and effects, over device output or an AudioWorklet.",
-  "hxn": { "cli": {"command":["haxe","-cp","{root}/sources","--run","hxn.audio.cli.Tool"],"files":["assets/hxn_audio_dsp.wasm"],"hooks":["before-build","before-package"],"namespace":"audio","version":1} },
+  "hxn": { "cli": {"command":["haxe","-cp","{root}/sources","--run","hxn.audio.cli.Tool"],"files":["assets/hxn_audio_dsp.wasm","third-party"],"hooks":["before-build","before-package"],"namespace":"audio","version":1} },
   "dependencies": { "hxn": "0.3.7" }
 }

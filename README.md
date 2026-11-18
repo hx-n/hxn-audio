@@ -104,6 +104,13 @@ partial writes and drains EOF.
 See [design](docs/design.md), [conventions](docs/conventions.md) and the
 [skill](skills/hxn-audio/SKILL.md) when changing this library.
 
+## License notices
+
+Redistributed applications must retain the applicable dependency notices in
+[third-party/NOTICES.md](third-party/NOTICES.md) and the accompanying license
+texts. The package includes the unchanged MPL-2.0 `audio_thread_priority`
+source archive for builds that use it; preserve its source availability.
+
 ## Roadmap
 
 The following validation and integration work remains open after the first release:

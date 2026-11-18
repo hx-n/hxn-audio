@@ -41,7 +41,7 @@ The installed CLI provides `hxn audio doctor`, source DSP builds and build/
 package hooks. Application hosts own mobile startup and audio-session policy.
 Playback runners and their iOS/Android/browser hosts belong under `tests/`,
 excluded from haxelib assets and public CLI commands. For contributor runtime,
-AAC and physical-device checks, read [testing](../../tests/README.md); those
+AAC and physical-device checks, read [testing](https://github.com/hx-n/hxn-audio/blob/main/tests/README.md); those
 hosts validate this library and do not define standard hxn iOS tooling.
 
 When editing, read docs/design.md and docs/conventions.md. Keep rendering

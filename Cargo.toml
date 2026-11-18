@@ -35,7 +35,7 @@ version = 1
 namespace = "audio"
 command = ["haxe", "-cp", "{root}/sources", "--run", "hxn.audio.cli.Tool"]
 hooks = ["before-build", "before-package"]
-files = ["assets/hxn_audio_dsp.wasm"]
+files = ["assets/hxn_audio_dsp.wasm", "third-party"]
 
 [build-dependencies]
 cc = "1"
