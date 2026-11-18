@@ -33,7 +33,7 @@ The unchanged audio_thread_priority source is included as [source.crate](license
 | futures-task 0.3.34 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/futures-task-0.3.34/LICENSE-APACHE), [LICENSE-MIT](licenses/futures-task-0.3.34/LICENSE-MIT) |
 | futures-util 0.3.34 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/futures-util-0.3.34/LICENSE-APACHE), [LICENSE-MIT](licenses/futures-util-0.3.34/LICENSE-MIT) |
 | hashbrown 0.17.1 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/hashbrown-0.17.1/LICENSE-APACHE), [LICENSE-MIT](licenses/hashbrown-0.17.1/LICENSE-MIT) |
-| hl_abi 0.1.0 | MIT | [LICENSE-MIT](licenses/hl_abi-0.1.0/LICENSE-MIT) |
+| hl_abi 0.1.0 | MIT | [LICENSE-MIT](licenses/hl_abi-0.1.0/LICENSE-MIT), [UPSTREAM-MANIFEST.txt](licenses/hl_abi-0.1.0/UPSTREAM-MANIFEST.txt) |
 | hxn 0.3.8 | Apache-2.0 | [LICENSE](licenses/hxn-0.3.8/LICENSE) |
 | hxn-abi 0.3.8 | Apache-2.0 | [LICENSE](licenses/hxn-abi-0.3.8/LICENSE) |
 | hxn-macros 0.3.8 | Apache-2.0 | [LICENSE](licenses/hxn-macros-0.3.8/LICENSE) |

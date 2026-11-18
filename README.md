@@ -4,8 +4,10 @@ Audio output and mixing for Haxe on HashLink, Ash, hxcpp and CPPIA,
 with native device output and browser AudioWorklets. Haxe supplies buffers and
 controls voices; the mixer runs on the audio thread.
 
-Use a packaged haxelib with `-lib hxn-audio`. Its adapters, Haxe classes,
-Worklet and DSP module are included.
+Install with `haxelib install hxn-audio`, then use `-lib hxn-audio`. Its
+adapters, Haxe classes, Worklet and DSP module are included. On Linux,
+hxcpp applications also need the ALSA development package (`libasound2-dev`
+on Debian/Ubuntu) for linking; HashLink/Ash need the ALSA runtime library.
 
 ```haxe
 import hxn.audio.*;

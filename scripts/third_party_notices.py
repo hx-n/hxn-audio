@@ -77,7 +77,7 @@ def material(package, output, apache, mit, previous, existing):
     if not files:
         old = previous.get((package['name'], package['version'], package.get('source')))
         if old and old['license'] == package['license']:
-            files = [(str(Path(name).relative_to(Path('licenses') / destination.name)), (existing / name).read_bytes()) for name in old['files'] if is_notice(Path(name).name)]
+            files = [(str(Path(name).relative_to(Path('licenses') / destination.name)), (existing / name).read_bytes()) for name in old['files'] if is_notice(Path(name).name) or Path(name).name == 'UPSTREAM-MANIFEST.txt']
         if not files and package.get('license'):
             files = upstream(package, root)
     license_id = package.get('license') or ''
@@ -94,6 +94,8 @@ def material(package, output, apache, mit, previous, existing):
             files = [('LICENSE-MIT', mit), ('UPSTREAM-MANIFEST.txt', Path(package['manifest_path']).read_bytes())]
         else:
             raise ValueError(f"No upstream license text: {package['name']} {license_id}")
+    if files == [('LICENSE-MIT', mit)]:
+        files.append(('UPSTREAM-MANIFEST.txt', Path(package['manifest_path']).read_bytes()))
     for name, content in files:
         (destination / name).parent.mkdir(parents=True, exist_ok=True)
         (destination / name).write_bytes(content)
