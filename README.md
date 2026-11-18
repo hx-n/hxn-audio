@@ -103,3 +103,18 @@ partial writes and drains EOF.
 
 See [design](docs/design.md), [conventions](docs/conventions.md) and the
 [skill](skills/hxn-audio/SKILL.md) when changing this library.
+
+## Roadmap
+
+The following validation and integration work remains open after the first release:
+
+- **Browser coverage:** Firefox and physical Android Chrome/iPhone Safari,
+  including AAC streaming through hxn-av.
+- **Windows output:** real WASAPI device playback and latency checks, beyond
+  CI compilation and offline mixer tests.
+- **Device transitions:** headset connect/disconnect, output route changes,
+  iOS interruptions, and Android audio-focus loss and recovery.
+- **Latency:** acoustic loopback measurements on representative hardware.
+  Current latency metrics are backend estimates.
+- **hxn-av integration:** publish its browser PCM/AAC updates and validate
+  the released packages together.
