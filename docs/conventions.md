@@ -11,6 +11,8 @@
   before acknowledging a request; never retain a pointer for async use.
 - Keep hxn-av's PCM and decoder ownership rules. Do not introduce another
   codec or sample-format implementation in this library.
+- Avoid a redundant suspend transition when a new AudioContext is already
+  suspended; initialization must finish before playback activation.
 - Treat suspended/initializing browser output as states, not successful
   audible playback. Exercise trusted activation separately from checks that
   enable browser autoplay. Exercise suspend/resume and route changes on

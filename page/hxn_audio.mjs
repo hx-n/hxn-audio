@@ -78,7 +78,7 @@ async function initialize(output, options) {
     if (!globalThis.crossOriginIsolated || typeof SharedArrayBuffer === 'undefined') throw new Error('audio requires cross-origin isolation (COOP and COEP)');
     const context = new AudioContext({sampleRate: options.sampleRate, latencyHint: 'interactive'});
     output.context = context;
-    await context.suspend();
+    if (context.state !== 'suspended') await context.suspend();
     if (output.closed) return;
     context.addEventListener('sinkchange', () => { output.event = 1; });
     context.onstatechange = () => { if (!output.closed && !output.error) output.state = context.state; };

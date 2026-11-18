@@ -29,7 +29,8 @@ tests. Options are records, not constructed classes.
 - Browser creation returns while initialization is pending. Poll metrics
   for state/error, request playback activation when suspended, and use a
   secure isolated page. The agent resumes requested playback on click/key.
-  `pause` prevents that retry until `resume`.
+  `pause` prevents that retry until `resume`. Initialize an already-suspended
+  AudioContext without awaiting another suspend request.
 - Mobile applications own audio-session/focus/background policy and call
   pause/resume at lifecycle boundaries. Poll native device events and
   reopen with selectDevice; don't discard the mixer or pending music.
@@ -46,6 +47,7 @@ hosts validate this library and do not define standard hxn iOS tooling.
 When editing, read docs/design.md and docs/conventions.md. Keep rendering
 allocation/free/lock/callback-free; defer retirement to the controller.
 Run the Rust tests and allocation audit, hxn check on every native runtime,
-actual output checks on mobile and all three browser modes, and installed
+actual output checks on mobile and all three browser modes (including local
+Safari when available), authorized Linux test hosts, and installed
 package checks. Source hooks build the DSP for wasm/packaging with nightly
 Rust and rust-src; haxelib consumers receive the compiled module.

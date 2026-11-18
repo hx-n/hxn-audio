@@ -39,6 +39,8 @@ calls render and copies a preallocated stereo ring into WebAudio channels.
 No control-side code runs on the audio thread. The page waits for the
 Worklet's startup acknowledgment before accessing shared control state.
 Closing waits for AudioContext.close() before reclaiming the renderer.
+An already-suspended AudioContext proceeds directly to DSP initialization;
+only a running context needs a suspend transition before setup.
 
 The same mixer core serves native, browser and offline output. Uploads,
 commands, voices, PCM and stream rings have explicit bounds. Startup writes

@@ -180,9 +180,19 @@ class Tool {
 			return;
 		}
 		if (!wasm) {
-			if (runtime == "hl")
-				execute(host, words.concat([Path.join([out, "main.hl"])]));
-			else
+			if (runtime == "hl") {
+				final variable = Sys.systemName() == "Windows" ? "PATH" : (Sys.systemName() == "Mac" ? "DYLD_LIBRARY_PATH" : "LD_LIBRARY_PATH");
+				final previous = Sys.getEnv(variable);
+				Sys.putEnv(variable, out + (previous == null
+					|| previous == "" ? "" : (Sys.systemName() == "Windows" ? ";" : ":") + previous));
+				try
+					execute(host, words.concat([Path.join([out, "main.hl"])]))
+				catch (error:Dynamic) {
+					Sys.putEnv(variable, previous);
+					throw error;
+				}
+				Sys.putEnv(variable, previous);
+			} else
 				execute(Path.join([out, "PlaybackCheck" + (Sys.systemName() == "Windows" ? ".exe" : "")]), []);
 			return;
 		}

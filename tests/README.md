@@ -26,7 +26,8 @@ haxe -cp tests/playback --run Tool cpp --target aarch64-linux-android --device <
 
 Use an absolute test class path to run from a separate consumer directory.
 Test assets resolve relative to that class path; output goes under the
-working directory's `target/hxn-audio/check/`. Run each invocation under an
+working directory's `target/hxn-audio/check/`. The runner adds its adapter
+directory to the native VM's library search path. Run each invocation under an
 external timeout and repeat concurrent/browser checks. Add `--vm 'ash --mode
 jit'` or `--vm 'ash --mode interp'` for the corresponding native VM modes.
 Browser tests need Node 22+, Chrome and matching Ash/Emscripten tools. Ash
@@ -35,6 +36,7 @@ uses its own wasm build/serve tooling.
 `--av` needs installed hxn-av and its matching platform archives. It decodes
 the AAC fixture through hxn-av into a 257-frame ring, forcing partial-write
 retries, and checks EOF and exact consumption while other sounds overlap.
+Linux AAC checks need hxn-av's GStreamer `faad` or `fdkaacdec` plugin.
 `--audible` extends the generated tone to eight seconds at a moderate signal
 level and never changes system volume. Device progress and backend latency
 estimates do not prove audible output or acoustic loopback timing; obtain
@@ -52,6 +54,11 @@ The test uses Xcode development signing, checks the device console completion
 marker and uninstalls its temporary app, including after a failed launch.
 The combined Ash/iOS host retains DWARF unwind metadata with compact-unwind
 encoding disabled when isolated Rust personalities exceed Mach-O's table.
+
+Test available local browsers as well as Chrome CI; exercise Safari with a
+trusted page key/click and inspect the completion marker in its output.
+`node tests/browser-startup.mjs` checks initialization of already-suspended
+and running AudioContexts, including a redundant suspend that never settles.
 
 `cargo test --workspace` includes functional, concurrent streaming and render
 allocation/free audits. `node tests/shared-dsp.mjs` checks shared DSP ownership
