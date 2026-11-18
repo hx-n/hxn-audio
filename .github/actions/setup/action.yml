@@ -12,7 +12,7 @@ runs:
     - uses: dtolnay/rust-toolchain@master
       with:
         toolchain: nightly-2026-08-25
-        components: rust-src
+        components: rust-src, rustfmt, clippy
     - uses: Swatinem/rust-cache@v2
     # ALSA headers for CPAL.
     - if: runner.os == 'Linux'
