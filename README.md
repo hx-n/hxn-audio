@@ -29,7 +29,7 @@ report accepted frames; retry the unwritten suffix before marking EOF.
 With `hxn-av`, `Av` and `DecoderStream` copy and feed decoded audio.
 
 See the [API reference](https://hxn.dev/api/hxn-audio/) for the classes and
-[design](docs/design.md) for mixing, ownership and buffering rules.
+[design](https://github.com/hx-n/hxn-audio/blob/main/docs/design.md) for mixing, ownership and buffering rules.
 
 ## Browser and mobile
 
@@ -73,15 +73,15 @@ wasm or packaging needs it; `hxn audio dsp` builds it explicitly from source.
 
 From source, `hxn check hl --vm ash` and `hxn check cpp cppia` exercise
 mixing offline. Playback tests and their mobile/browser hosts live under
-`tests/`; see [testing](tests/README.md) for contributor instructions.
+`tests/`; see [testing](https://github.com/hx-n/hxn-audio/blob/main/tests/README.md) for contributor instructions.
 
-See [design](docs/design.md), [conventions](docs/conventions.md) and the
-[skill](skills/hxn-audio/SKILL.md) when changing this library.
+See [design](https://github.com/hx-n/hxn-audio/blob/main/docs/design.md), [conventions](https://github.com/hx-n/hxn-audio/blob/main/docs/conventions.md) and the
+[skill](https://github.com/hx-n/hxn-audio/blob/main/skills/hxn-audio/SKILL.md) when changing this library.
 
 ## License notices
 
 Redistributed applications must retain the applicable dependency notices in
-[third-party/NOTICES.md](third-party/NOTICES.md) and the accompanying license
+[third-party/NOTICES.md](https://github.com/hx-n/hxn-audio/blob/main/third-party/NOTICES.md) and the accompanying license
 texts. The package includes the unchanged MPL-2.0 `audio_thread_priority`
 source archive for builds that use it; preserve its source availability.
 
