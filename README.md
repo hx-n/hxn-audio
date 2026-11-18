@@ -1,5 +1,10 @@
 # hxn-audio
 
+[![Native](https://github.com/hx-n/hxn-audio/actions/workflows/native.yml/badge.svg)](https://github.com/hx-n/hxn-audio/actions/workflows/native.yml)
+[![Browser](https://github.com/hx-n/hxn-audio/actions/workflows/browser.yml/badge.svg)](https://github.com/hx-n/hxn-audio/actions/workflows/browser.yml)
+[![Generated API](https://github.com/hx-n/hxn-audio/actions/workflows/generated.yml/badge.svg)](https://github.com/hx-n/hxn-audio/actions/workflows/generated.yml)
+[![Release](https://github.com/hx-n/hxn-audio/actions/workflows/release.yml/badge.svg)](https://github.com/hx-n/hxn-audio/actions/workflows/release.yml)
+
 Audio output and mixing for Haxe on HashLink, Ash, hxcpp and CPPIA,
 with native device output and browser AudioWorklets. Haxe supplies buffers and
 controls voices; the mixer runs on the audio thread.
