@@ -7,5 +7,6 @@ package hxn.audio;
 	a delivery does.
 **/
 class HxnAudioMemory {
+	@:keep static final logging = hxn.Log.attach(level -> HxnAudioNative.log_level(level), () -> HxnAudioNative.log_take());
 	public static final meter = new hxn.Gc.Meter(() -> HxnAudioNative.memory_held(), () -> HxnAudioNative.memory_wanted());
 }

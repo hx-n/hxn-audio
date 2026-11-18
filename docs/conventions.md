@@ -43,3 +43,10 @@
   notices and any required source availability. Refresh its pinned inventory
   after changing Cargo manifests or the lock file. Skill documentation links
   use absolute HTTPS repository URLs.
+
+## Logging
+
+Use core `hxn::log` and `hxn.Log` with a stable library target. Applications
+own filtering and sinks; libraries do not configure them. Keep rendering and
+real-time callbacks free of logging. Generated bindings pull native diagnostics
+after calls return; manual frame loops drain at `hxn.Loop.sync()`.

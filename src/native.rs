@@ -161,6 +161,7 @@ impl Output {
             .pause()
             .map_err(|e| e.to_string())?;
         self.paused = true;
+        hxn::log::debug!(target: "hxn.audio", "output paused");
         Ok(())
     }
     pub fn resume(&mut self) -> Result<(), String> {
@@ -170,6 +171,7 @@ impl Output {
             .play()
             .map_err(|e| e.to_string())?;
         self.paused = false;
+        hxn::log::debug!(target: "hxn.audio", "output resumed");
         Ok(())
     }
     pub fn select(&mut self, id: &str) -> Result<(), String> {
@@ -242,6 +244,7 @@ impl Output {
             stream.play().map_err(|e| e.to_string())?;
         }
         self.stream = Some(stream);
+        hxn::log::debug!(target: "hxn.audio", "selected output: {rate} Hz, {channels} channels");
         Ok(())
     }
 }

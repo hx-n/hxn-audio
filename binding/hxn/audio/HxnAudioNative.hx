@@ -31,6 +31,8 @@ package hxn.audio;
 @:noCompletion class HxnAudioNative {
 	static function memory_held():Float;
 	static function memory_wanted():Bool;
+	static function log_level(level:Int):Void;
+	public static function log_take():Null<haxe.io.Bytes>;
 	static function audio_buffer_new(pcm:haxe.io.Bytes, sampleRate:Int, channels:Int):hxn.Handle;
 	static function audio_buffer_frames(self:hxn.Handle):haxe.Int64;
 	static function audio_buffer_sample_rate(self:hxn.Handle):Int;

@@ -228,6 +228,7 @@ pub struct AudioOutput {
 impl AudioOutput {
     fn with_backend(options: AudioOptions, offline: bool) -> Result<Self, String> {
         let config = options.config()?;
+        hxn::log::debug!(target: "hxn.audio", "opening {} output at {} Hz", if offline { "offline" } else { "device" }, config.sample_rate);
         #[cfg(target_family = "wasm")]
         if !offline {
             let context = web::Context::open(&options)?;

@@ -1,8 +1,8 @@
 # Working on hxn-audio
 
 Read docs/design.md, docs/conventions.md and skills/hxn-audio/SKILL.md.
-Use the hxn repository's git-bug tracker for hxnme integration work. Read
-its audio issue before changing this library; keep measurements, pending
+Use this repository's git-bug tracker for its work. Read
+the relevant issue before changing this library; keep measurements, pending
 work and decisions there rather than in status or planning documents.
 
 Before calling a change done, run cargo fmt --all, cargo clippy --workspace

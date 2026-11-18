@@ -1,6 +1,6 @@
 [package]
 name = "hxn-audio"
-version = "0.1.1"
+version = "0.1.2"
 edition = "2024"
 license = "Apache-2.0"
 repository = "https://github.com/hx-n/hxn-audio"
@@ -15,7 +15,7 @@ hxn-audio-core = { path = "crates/hxn-audio-core" }
 rtrb = "0.4.1"
 
 [dependencies]
-hxn = { git = "https://github.com/hx-n/hxn.git", tag = "v0.3.8" }
+hxn = { git = "https://github.com/hx-n/hxn.git", tag = "v0.3.9" }
 hxn-audio-core.workspace = true
 rtrb.workspace = true
 
@@ -26,7 +26,7 @@ cpal = "0.18.2"
 library = "audio"
 haxelib = "hxn-audio"
 contributors = ["darmie"]
-releasenote = "Shorter quick-start README with CI badges; detailed mixer, ownership and decoder behavior is in the design guide."
+releasenote = "Use hxn 0.3.9 shared logging with application-owned filtering and sinks; retain pinned dependency redistribution notices."
 haxe = "examples/check"
 init = ["hxn.audio.Init.register()"]
 

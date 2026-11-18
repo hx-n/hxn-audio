@@ -2,7 +2,10 @@
 package hxn.audio;
 
 /** The library's functions that belong to no object. **/
+@:build(hxn.Log.bind())
 class Audio {
+	@:keep @:noCompletion static final hxnMemory = HxnAudioMemory.meter;
+
 	public static function devices():Array<AudioDevice> {
 		var input = new haxe.io.BytesInput(HxnAudioNative.audio_devices());
 		return [for (_ in 0...input.readInt32()) AudioDevice.hxnRead(input)];

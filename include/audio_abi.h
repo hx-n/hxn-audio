@@ -90,6 +90,10 @@ hxn_status hxn_audio_audio_bus_weak_close(hxn_handle *self, hxn_buf *err);
 /* Audio */
 hxn_status hxn_audio_audio_devices(hxn_buf *out, hxn_buf *err);
 
+/* Configures capture and takes a bounded diagnostic batch. */
+void hxn_audio_log_level(int32_t level);
+hxn_status hxn_audio_log_take(hxn_buf *out, hxn_buf *err);
+
 /* The bytes the library's values hold that the host's collector cannot see,
  * and whether the library asked for a collection since the last call. */
 double hxn_audio_memory_held(void);
