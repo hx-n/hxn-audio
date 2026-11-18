@@ -33,7 +33,7 @@ The unchanged audio_thread_priority source is included as [source.crate](license
 | futures-task 0.3.34 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/futures-task-0.3.34/LICENSE-APACHE), [LICENSE-MIT](licenses/futures-task-0.3.34/LICENSE-MIT) |
 | futures-util 0.3.34 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/futures-util-0.3.34/LICENSE-APACHE), [LICENSE-MIT](licenses/futures-util-0.3.34/LICENSE-MIT) |
 | hashbrown 0.17.1 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/hashbrown-0.17.1/LICENSE-APACHE), [LICENSE-MIT](licenses/hashbrown-0.17.1/LICENSE-MIT) |
-| hl_abi 0.1.0 | MIT | [LICENSE-MIT](licenses/hl_abi-0.1.0/LICENSE-MIT), [UPSTREAM-MANIFEST.txt](licenses/hl_abi-0.1.0/UPSTREAM-MANIFEST.txt) |
+| hl_abi 0.1.0 | MIT | [LICENSE-MIT](licenses/hl_abi-0.1.0/LICENSE-MIT) |
 | hxn 0.3.8 | Apache-2.0 | [LICENSE](licenses/hxn-0.3.8/LICENSE) |
 | hxn-abi 0.3.8 | Apache-2.0 | [LICENSE](licenses/hxn-abi-0.3.8/LICENSE) |
 | hxn-macros 0.3.8 | Apache-2.0 | [LICENSE](licenses/hxn-macros-0.3.8/LICENSE) |
@@ -64,7 +64,7 @@ The unchanged audio_thread_priority source is included as [source.crate](license
 | objc2-core-audio-types 0.3.2 | Zlib OR Apache-2.0 OR MIT | [LICENSE.md](licenses/objc2-core-audio-types-0.3.2/LICENSE.md) |
 | objc2-core-foundation 0.3.2 | Zlib OR Apache-2.0 OR MIT | [LICENSE.md](licenses/objc2-core-foundation-0.3.2/LICENSE.md) |
 | objc2-encode 4.1.0 | MIT | [LICENSE.md](licenses/objc2-encode-4.1.0/LICENSE.md) |
-| objc2-foundation 0.3.2 | MIT | [copying.rs](licenses/objc2-foundation-0.3.2/src/copying.rs), [copying.rs](licenses/objc2-foundation-0.3.2/src/tests/copying.rs) |
+| objc2-foundation 0.3.2 | MIT | [LICENSE.md](licenses/objc2-foundation-0.3.2/LICENSE.md) |
 | pin-project-lite 0.2.17 | Apache-2.0 OR MIT | [LICENSE-APACHE](licenses/pin-project-lite-0.2.17/LICENSE-APACHE), [LICENSE-MIT](licenses/pin-project-lite-0.2.17/LICENSE-MIT) |
 | pkg-config 0.3.34 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/pkg-config-0.3.34/LICENSE-APACHE), [LICENSE-MIT](licenses/pkg-config-0.3.34/LICENSE-MIT) |
 | proc-macro-crate 3.5.0 | MIT OR Apache-2.0 | [LICENSE-APACHE](licenses/proc-macro-crate-3.5.0/LICENSE-APACHE), [LICENSE-MIT](licenses/proc-macro-crate-3.5.0/LICENSE-MIT) |

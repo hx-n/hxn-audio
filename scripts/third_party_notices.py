@@ -44,7 +44,8 @@ def reachable(data, roots):
 
 
 def is_notice(name):
-    return bool(re.match(r'^(licen[sc]e|notice|copying|copyright)([.\-_]|$)', name, re.I))
+    # Modules such as copying.rs implement APIs; they are not license texts.
+    return Path(name).suffix.lower() not in ('.rs', '.c', '.h', '.cpp', '.hx', '.py', '.js', '.ts') and bool(re.match(r'^(licen[sc]e|notice|copying|copyright)([.\-_]|$)', name, re.I))
 
 
 def upstream(package, root):
@@ -76,8 +77,8 @@ def material(package, output, apache, mit, previous, existing):
     if not files:
         old = previous.get((package['name'], package['version'], package.get('source')))
         if old and old['license'] == package['license']:
-            files = [(str(Path(name).relative_to(Path('licenses') / destination.name)), (existing / name).read_bytes()) for name in old['files']]
-        elif package.get('license'):
+            files = [(str(Path(name).relative_to(Path('licenses') / destination.name)), (existing / name).read_bytes()) for name in old['files'] if is_notice(Path(name).name)]
+        if not files and package.get('license'):
             files = upstream(package, root)
     license_id = package.get('license') or ''
     if not files:

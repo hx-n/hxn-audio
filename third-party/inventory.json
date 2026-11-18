@@ -251,8 +251,7 @@
       "repository": null,
       "source": "git+https://github.com/rayzor-blade/hl_abi#f38e06df4c7f7d7e79348df345c71ea70770a82d",
       "files": [
-        "licenses/hl_abi-0.1.0/LICENSE-MIT",
-        "licenses/hl_abi-0.1.0/UPSTREAM-MANIFEST.txt"
+        "licenses/hl_abi-0.1.0/LICENSE-MIT"
       ]
     },
     {
@@ -586,8 +585,7 @@
       "repository": "https://github.com/madsmtm/objc2",
       "source": "registry+https://github.com/rust-lang/crates.io-index",
       "files": [
-        "licenses/objc2-foundation-0.3.2/src/copying.rs",
-        "licenses/objc2-foundation-0.3.2/src/tests/copying.rs"
+        "licenses/objc2-foundation-0.3.2/LICENSE.md"
       ]
     },
     {
