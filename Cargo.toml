@@ -1,6 +1,6 @@
 [package]
 name = "hxn-audio"
-version = "0.1.0"
+version = "0.1.1"
 edition = "2024"
 license = "Apache-2.0"
 repository = "https://github.com/hx-n/hxn-audio"
@@ -26,7 +26,7 @@ cpal = "0.18.2"
 library = "audio"
 haxelib = "hxn-audio"
 contributors = ["darmie"]
-releasenote = "Native mixing with voices, streaming PCM, buses and effects, over device output or an AudioWorklet."
+releasenote = "Shorter quick-start README with CI badges; detailed mixer, ownership and decoder behavior is in the design guide."
 haxe = "examples/check"
 init = ["hxn.audio.Init.register()"]
 

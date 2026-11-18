@@ -216,7 +216,7 @@ source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef
 
 [[package]]
 name = "hxn-audio"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "cc",
  "cpal",
@@ -229,14 +229,14 @@ dependencies = [
 
 [[package]]
 name = "hxn-audio-core"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "rtrb",
 ]
 
 [[package]]
 name = "hxn-audio-dsp"
-version = "0.1.0"
+version = "0.1.1"
 dependencies = [
  "hxn-audio-core",
  "serde_json",

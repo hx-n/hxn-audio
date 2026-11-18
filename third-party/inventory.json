@@ -2,19 +2,19 @@
   "inputs": [
     {
       "path": "Cargo.lock",
-      "sha256": "24af1b4145165d2283f72f584fb9b9d3768ef76c714c2dcea34f40aa010e3117"
+      "sha256": "598110775118863b5bda413765d412fc50d4a9983080e61799e8190838ff1671"
     },
     {
       "path": "Cargo.toml",
-      "sha256": "a74ada164ce80f8f5877c114521f5b73121b2c420dd6091c12f3954c250bd48c"
+      "sha256": "823a78778f07b931efe8ffcd8fa3a3d9033a0adb3f067a8ba2ed10fa9b4d38ee"
     },
     {
       "path": "crates/hxn-audio-core/Cargo.toml",
-      "sha256": "009d199080140e82633eb44a99185a619c85ee10df3ed607574bdb998d79cff2"
+      "sha256": "b41e3e9f9efdd72c9bf8b4b521fe1cc1b0712766aa52bdb298df6fc8f6d62eb1"
     },
     {
       "path": "crates/hxn-audio-dsp/Cargo.toml",
-      "sha256": "3f4ac9cc36e6023fd117cbb550b5ad975c549d39fa696ea2b4171df2a1a7371c"
+      "sha256": "58b6e553624b1c07d5b50a2f2181942af05c3ce87beeeaa7c8d5dc1a5f4a28b6"
     }
   ],
   "packages": [
