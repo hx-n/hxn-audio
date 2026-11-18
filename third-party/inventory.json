@@ -2,11 +2,11 @@
   "inputs": [
     {
       "path": "Cargo.lock",
-      "sha256": "5f90597c8bca6df44c08bea89edc93d394ca3e71762c94788dc8c75928d93f8c"
+      "sha256": "24af1b4145165d2283f72f584fb9b9d3768ef76c714c2dcea34f40aa010e3117"
     },
     {
       "path": "Cargo.toml",
-      "sha256": "92c1c60fc04d9ef470cb82485fc9f53e8040f307a3aa3ac21b5ef4acc783e8a7"
+      "sha256": "a74ada164ce80f8f5877c114521f5b73121b2c420dd6091c12f3954c250bd48c"
     },
     {
       "path": "crates/hxn-audio-core/Cargo.toml",
@@ -257,32 +257,32 @@
     },
     {
       "name": "hxn",
-      "version": "0.3.7",
+      "version": "0.3.8",
       "license": "Apache-2.0",
       "repository": "https://github.com/hx-n/hxn",
-      "source": "git+https://github.com/hx-n/hxn.git?tag=v0.3.7#841a6d19c9dbc5011f17e28eca6fd3511699ce59",
+      "source": "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef287b6cb8cfdd661a9",
       "files": [
-        "licenses/hxn-0.3.7/LICENSE"
+        "licenses/hxn-0.3.8/LICENSE"
       ]
     },
     {
       "name": "hxn-abi",
-      "version": "0.3.7",
+      "version": "0.3.8",
       "license": "Apache-2.0",
       "repository": "https://github.com/hx-n/hxn",
-      "source": "git+https://github.com/hx-n/hxn.git?tag=v0.3.7#841a6d19c9dbc5011f17e28eca6fd3511699ce59",
+      "source": "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef287b6cb8cfdd661a9",
       "files": [
-        "licenses/hxn-abi-0.3.7/LICENSE"
+        "licenses/hxn-abi-0.3.8/LICENSE"
       ]
     },
     {
       "name": "hxn-macros",
-      "version": "0.3.7",
+      "version": "0.3.8",
       "license": "Apache-2.0",
       "repository": "https://github.com/hx-n/hxn",
-      "source": "git+https://github.com/hx-n/hxn.git?tag=v0.3.7#841a6d19c9dbc5011f17e28eca6fd3511699ce59",
+      "source": "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef287b6cb8cfdd661a9",
       "files": [
-        "licenses/hxn-macros-0.3.7/LICENSE"
+        "licenses/hxn-macros-0.3.8/LICENSE"
       ]
     },
     {
@@ -586,7 +586,8 @@
       "repository": "https://github.com/madsmtm/objc2",
       "source": "registry+https://github.com/rust-lang/crates.io-index",
       "files": [
-        "licenses/objc2-foundation-0.3.2/LICENSE.md"
+        "licenses/objc2-foundation-0.3.2/src/copying.rs",
+        "licenses/objc2-foundation-0.3.2/src/tests/copying.rs"
       ]
     },
     {

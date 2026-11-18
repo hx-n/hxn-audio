@@ -51,3 +51,9 @@ actual output checks on mobile and all three browser modes (including local
 Safari when available), authorized Linux test hosts, and installed
 package checks. Source hooks build the DSP for wasm/packaging with nightly
 Rust and rust-src; haxelib consumers receive the compiled module.
+
+## Redistribution
+
+Retain the applicable [dependency licenses and notices](https://github.com/hx-n/hxn-audio/blob/main/third-party/NOTICES.md)
+when distributing binaries, including the bundled unchanged MPL dependency source.
+Release packages include `third-party/`.

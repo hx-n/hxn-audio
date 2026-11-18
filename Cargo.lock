@@ -202,8 +202,8 @@ checksum = "ed5909b6e89a2db4456e54cd5f673791d7eca6732202bbf2a9cc504fe2f9b84a"
 
 [[package]]
 name = "hxn"
-version = "0.3.7"
-source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.7#841a6d19c9dbc5011f17e28eca6fd3511699ce59"
+version = "0.3.8"
+source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef287b6cb8cfdd661a9"
 dependencies = [
  "hxn-abi",
  "hxn-macros",
@@ -211,8 +211,8 @@ dependencies = [
 
 [[package]]
 name = "hxn-abi"
-version = "0.3.7"
-source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.7#841a6d19c9dbc5011f17e28eca6fd3511699ce59"
+version = "0.3.8"
+source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef287b6cb8cfdd661a9"
 
 [[package]]
 name = "hxn-audio"
@@ -244,8 +244,8 @@ dependencies = [
 
 [[package]]
 name = "hxn-macros"
-version = "0.3.7"
-source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.7#841a6d19c9dbc5011f17e28eca6fd3511699ce59"
+version = "0.3.8"
+source = "git+https://github.com/hx-n/hxn.git?tag=v0.3.8#763216a473053ecdf57ecef287b6cb8cfdd661a9"
 
 [[package]]
 name = "indexmap"

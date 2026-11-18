@@ -15,7 +15,7 @@ hxn-audio-core = { path = "crates/hxn-audio-core" }
 rtrb = "0.4.1"
 
 [dependencies]
-hxn = { git = "https://github.com/hx-n/hxn.git", tag = "v0.3.7" }
+hxn = { git = "https://github.com/hx-n/hxn.git", tag = "v0.3.8" }
 hxn-audio-core.workspace = true
 rtrb.workspace = true
 

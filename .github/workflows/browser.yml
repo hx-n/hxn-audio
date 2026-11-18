@@ -58,7 +58,7 @@ jobs:
           node tests/browser-startup.mjs
           node tests/shared-dsp.mjs
           node --expose-gc tests/mailbox-gc.mjs
-          haxelib install hxn 0.3.7 --always
+          haxelib install hxn 0.3.8 --always
           haxelib dev hxn-audio "$PWD/package"
           hxn plugins
           hxn audio doctor

@@ -9,6 +9,7 @@ import re
 import shutil
 import subprocess
 import tarfile
+import tempfile
 import urllib.error
 import urllib.request
 from concurrent.futures import ThreadPoolExecutor
@@ -16,12 +17,18 @@ from concurrent.futures import ThreadPoolExecutor
 
 def fetch(url):
     request = urllib.request.Request(url, headers={'User-Agent': 'hxn-release-notices'})
-    with urllib.request.urlopen(request, timeout=30) as response:
-        return response.read()
+    try:
+        with urllib.request.urlopen(request, timeout=30) as response:
+            return response.read()
+    except urllib.error.HTTPError as error:
+        if error.code == 403 and url.startswith('https://api.github.com/') and shutil.which('gh'):
+            return subprocess.check_output(['gh', 'api', url.removeprefix('https://api.github.com/')])
+        raise
 
 
 def metadata(manifest):
-    return json.loads(subprocess.check_output(['cargo', 'metadata', '--locked', '--format-version', '1', '--manifest-path', str(manifest)]))
+    # Audit the published graph, without checkout-local development patches.
+    return json.loads(subprocess.check_output(['cargo', 'metadata', '--locked', '--format-version', '1', '--manifest-path', str(manifest.resolve())], cwd=tempfile.gettempdir()))
 
 
 def reachable(data, roots):
@@ -58,9 +65,9 @@ def upstream(package, root):
 
 def material(package, output, apache, mit, previous, existing):
     root = Path(package['manifest_path']).parent
-    destination = output / 'licenses' / f"{package['name']}-{package['version']}"
+    destination = output / 'licenses' / package.get('_notice_name', f"{package['name']}-{package['version']}")
     destination.mkdir(parents=True)
-    files = [(p.name, p.read_bytes()) for p in root.iterdir() if p.is_file() and is_notice(p.name)]
+    files = [(str(p.relative_to(root)), p.read_bytes()) for p in root.rglob('*') if p.is_file() and not p.is_symlink() and not any(part in ('.git', 'target') for part in p.relative_to(root).parts) and is_notice(p.name)]
     if not files and package.get('source', '').startswith('git+'):
         for parent in root.parents:
             if (parent / '.git').exists():
@@ -69,12 +76,16 @@ def material(package, output, apache, mit, previous, existing):
     if not files:
         old = previous.get((package['name'], package['version'], package.get('source')))
         if old and old['license'] == package['license']:
-            files = [(Path(name).name, (existing / name).read_bytes()) for name in old['files']]
-        else:
+            files = [(str(Path(name).relative_to(Path('licenses') / destination.name)), (existing / name).read_bytes()) for name in old['files']]
+        elif package.get('license'):
             files = upstream(package, root)
     license_id = package.get('license') or ''
     if not files:
-        if 'Apache-2.0' in license_id and 'AND' not in license_id:
+        if not license_id:
+            files = [('UPSTREAM-MANIFEST.txt', Path(package['manifest_path']).read_bytes())]
+        elif license_id == 'CC0-1.0':
+            files = [('LICENSE-CC0', fetch('https://raw.githubusercontent.com/spdx/license-list-data/v3.27.0/text/CC0-1.0.txt'))]
+        elif 'Apache-2.0' in license_id and 'AND' not in license_id:
             files = [('LICENSE-APACHE', apache)]
         elif license_id == 'MIT':
             # Upstream declares MIT but supplies no separate copyright notice.
@@ -83,8 +94,11 @@ def material(package, output, apache, mit, previous, existing):
         else:
             raise ValueError(f"No upstream license text: {package['name']} {license_id}")
     for name, content in files:
+        (destination / name).parent.mkdir(parents=True, exist_ok=True)
         (destination / name).write_bytes(content)
     record = {key: package.get(key) for key in ['name', 'version', 'license', 'repository', 'source']}
+    if not license_id:
+        record['license'] = 'NOASSERTION'
     record['files'] = [str((destination / name).relative_to(output)) for name, _ in files]
     if license_id == 'MPL-2.0':
         filename = f"{package['name']}-{package['version']}.crate"
@@ -118,6 +132,8 @@ def main():
                 assert (args.output / name).stat().st_size > 0, name
             if item.get('source_archive'):
                 assert hashlib.sha256((args.output / item['source_archive']).read_bytes()).hexdigest() == item['source_sha256']
+        unresolved = [f"{p['name']} {p['version']}" for p in inventory['packages'] if p.get('license') == 'NOASSERTION']
+        assert not unresolved, f"Resolve upstream licenses before releasing: {', '.join(unresolved)}"
         print('Pinned dependency notices and source archives are current.')
         return
     data = metadata(args.manifest)
@@ -127,7 +143,10 @@ def main():
         extra = metadata(args.extra_manifest)
         packages += reachable(extra, [p['id'] for p in extra['packages'] if p['name'] in args.extra_package])
     packages = list({p['id']: p for p in packages}.values())
-    assert all(p.get('license') for p in packages), 'A dependency has no declared license'
+    for package in packages:
+        if sum(p['name'] == package['name'] and p['version'] == package['version'] for p in packages) > 1:
+            revision = hashlib.sha256(package['source'].encode()).hexdigest()[:8]
+            package['_notice_name'] = f"{package['name']}-{package['version']}-{revision}"
     apache_package = next(p for p in packages if (Path(p['manifest_path']).parent / 'LICENSE-APACHE').exists())
     apache = (Path(apache_package['manifest_path']).parent / 'LICENSE-APACHE').read_bytes()
     # The standard permission/warranty terms, without inventing copyright data.
@@ -161,6 +180,8 @@ def main():
         'When redistributing binaries, retain the applicable notices and license texts.', '',
     ]
     for p in records:
+        if p['license'] == 'NOASSERTION':
+            lines += [f"**Unresolved license:** {p['name']} {p['version']} has no declared license at its pinned source revision. Its manifest is retained for provenance, not as a license grant. Resolve upstream terms before releasing this distribution.", '']
         if p.get('source_archive'):
             archive = p['source_archive']
             lines += [f"The unchanged {p['name']} source is included as [source.crate]({archive}) under MPL-2.0. Preserve source availability and its notices when redistributing.", '']
